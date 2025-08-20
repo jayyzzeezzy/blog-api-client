@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [blogAPI, setBlogAPI] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getBlogAPI = async () => {
@@ -18,24 +20,33 @@ function App() {
             },
           },
         );
+
+        if (response.status >= 400) {
+          throw new Error("server error");
+        }
+
         const result = await response.json();
         console.log(result);
         setBlogAPI(result);
       } catch (error) {
-        console.error(error);
+        setError(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     getBlogAPI();
   }, []);
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>A network error was encountered</p>;
+  if (blogAPI.blogs.length === 0) return <p>No blog content</p>;
+
   return (
-    blogAPI && (
-      <>
-        <p>hello world</p>
-        <p>{blogAPI.blogs[0].title}</p>
-      </>
-    )
+    <>
+      <p>hello world</p>
+      {blogAPI && blogAPI.blogs.length > 0 && <p>{blogAPI.blogs[0].title}</p>}
+    </>
   );
 };
 
