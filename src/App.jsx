@@ -21,6 +21,10 @@ function App() {
           },
         );
 
+        if (response.status == 401) {
+          throw new Error("Unauthorized");
+        }
+
         if (response.status >= 400) {
           throw new Error("server error");
         }
@@ -39,7 +43,7 @@ function App() {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>A network error was encountered</p>;
+  if (error) return <p>{error.message}</p>;
   if (blogAPI.blogs.length === 0) return <p>No blog content</p>;
 
   return (
