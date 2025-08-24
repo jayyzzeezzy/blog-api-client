@@ -1,5 +1,7 @@
-import './App.css'
 import { useState, useEffect } from "react";
+import { Outlet, Link } from "react-router-dom";
+import NavBar from "./NavBar";
+import './App.css'
 
 
 function App() {
@@ -48,8 +50,11 @@ function App() {
 
   return (
     <>
+      <NavBar />
       <p>hello world</p>
       {blogAPI && blogAPI.blogs.length > 0 && <p>{blogAPI.blogs[0].title}</p>}
+      <hr />
+      <Outlet />
     </>
   );
 };
