@@ -45,13 +45,13 @@ const Login = () => {
 
   return (
     <div>
+        {error && <p>{error}</p>}
         <form method="POST" onSubmit={(e) => handleFormSubmit(e)} >
-            {error && <p>{error}</p>}
             <label htmlFor="username">Username</label>
             <input type="text" id="username" name="username" required />
 
             <label htmlFor="password">Password</label>
-            <input type="text" id="password" name="password" required />
+            <input type="password" id="password" name="password" required />
 
             <input type="submit" value="Submit" />
         </form>
