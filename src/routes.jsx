@@ -3,6 +3,7 @@ import ErrorPage from "./ErrorPage";
 import Login from "./Login";
 import Signup from "./Signup";
 import Home from "./Home";
+import Logout from "./Logout";
 
 const routes = [
   {
@@ -13,6 +14,7 @@ const routes = [
       { index: true, element: <Home /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
+      { path: "logout", element: <Logout /> },
     ],
   },
 ];
