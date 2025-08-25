@@ -1,7 +1,8 @@
 import moment from 'moment';
 
 export function setLocalStorage(responseObj) {
-    const expires = moment().add(responseObj.expiresIn);
+    const expiration = parseInt(responseObj.expiresIn);
+    const expires = moment().add(expiration, 'd'); //add 14 days
     localStorage.setItem('token', responseObj.token);
     localStorage.setItem('expires', JSON.stringify(expires.valueOf()));
 }

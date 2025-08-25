@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as authServices from "./services/authServices";
 
 const Login = () => {
   const [error, setError] = useState(null);
   const [verifying, setVerifying] = useState(false);
   const navigate = useNavigate();
+  // get error message after being redirected
+  const location = useLocation();
+  const message = location.state?.message; 
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +48,7 @@ const Login = () => {
 
   return (
     <div>
+        {message && <p>{message}</p>}
         {error && <p>{error}</p>}
         <form method="POST" onSubmit={(e) => handleFormSubmit(e)} >
             <label htmlFor="username">Username</label>
