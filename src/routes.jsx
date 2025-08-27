@@ -4,6 +4,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Home from "./Home";
 import Logout from "./Logout";
+import Blog from "./Blog";
 
 const routes = [
   {
@@ -15,6 +16,7 @@ const routes = [
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       { path: "logout", element: <Logout /> },
+      { path: "blogs/:blogId", element: <Blog /> },
     ],
   },
 ];

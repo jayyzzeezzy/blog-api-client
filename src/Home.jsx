@@ -51,10 +51,9 @@ const Home = () => {
     <div>
       <ul>
       {blogs && blogs.length > 0 && blogs.map((blog) => {
-        const link = "http://localhost:3000/blogs/" + blogs.id;
         return (
           <li key={blog.id} id={blog.id}>
-            <Link to={link}>{blog.title}</Link>
+            <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
           </li>
         )
       })}
