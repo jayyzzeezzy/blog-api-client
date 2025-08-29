@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import CommentSection from "./CommentSection";
 
 function Blog() {
   const token = localStorage.getItem('token');
+  const navigate= useNavigate();
   const { blogId } = useParams();
   const [blog, setBlog] = useState(null);
   const [error, setError] = useState(null);
@@ -23,7 +25,7 @@ function Blog() {
             );
 
             if (response.status === 401) {
-                return <Navigate to='/login' />;
+                navigate('/login');
             }
 
             if (response.status >= 400) {
@@ -41,7 +43,7 @@ function Blog() {
     };
 
     getBlog();
-  }, [token, blogId]);
+  }, [token, blogId, navigate]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
@@ -55,20 +57,9 @@ function Blog() {
         <p>By: James</p>
         <p>{blog.body}</p>
 
-        <div>
-            <h3>Comments</h3>
-            {blog.comments.length === 0 ? (<p>No comments yet</p>) : (
-                blog.comments.map((comment) => {
-                    return (
-                        <div key={comment.id}>
-                            <p>{comment.createdAt}</p>
-                            <p>{comment.body}</p>
-                        </div>
-                    )
-                })
-            )}
-        </div>
-
+        <br />
+        
+        <CommentSection comments={blog.comments} blogId={blogId} />
         </div>}
     </>
   );
